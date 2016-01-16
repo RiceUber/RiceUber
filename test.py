@@ -17,11 +17,11 @@ def home_page():
 
 @app.route('/addride')
 def add_ride():
-	pass
+	return render_template('addride.html')
 
 @app.route('/data')
 def data():
-	pass
+	return render_template('data.html')
 
 
 if __name__ == '__main__':
