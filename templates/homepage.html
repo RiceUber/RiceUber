@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+<!--<div class="container">
+<div class="row">
+  <div class = "col-md-4">
+  </div>
+  <div class ="col-md-4">  
+   <a = href = "http://gohealthyhouston.org/sundaystreetshtx/"> <img src= "http://www.houstontx.gov/specialevents/sundaystreets/sstx-logo-200.jpg"/>
+</a>
+  </div>
+</div>-->
+
+<div class="row">
+    <div class="col-sm-offset-5 col-sm-2 text-center">
+		<img src= "https://scontent.fhou2-1.fna.fbcdn.net/hphotos-xaf1/v/t1.0-9/12552694_641143182692934_3887024323462599300_n.jpg?oh=64f642fb294cee94e4957111154c39ed&oe=56FE3178"/>
+    </div>
+</div>
+
+<!-- Uncomment to restore functionality -->
+<form action="{{ url_for('add_ride') }}">
+  <div class="form-group">
+    <input class="btn btn-large btn-info" type="submit" value="Add Ride">
+  </div>
+</form>
+
+<form action="{{ url_for('data') }}">
+  <div class="form-group">
+    <input class="btn btn-large btn-info" type="submit" value="Current Listings">
+  </div>
+</form>
+
+
+
+{% endblock %}

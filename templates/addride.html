@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Counter{% endblock %}
+{% block content %}
+
+<form id="addRide" method="post" action=" {{ url_for('addride') }} ">
+  <fieldset class='form-group'>
+    <label for='name'>Name</label>
+    <input class='form-control' type='text' id='name' name='name'>
+  </fieldset>
+
+  <fieldset class='form-group'>
+    <label for='email'>Email</label>
+    <input class='form-control' type='text' id='email' name='email'>
+  </fieldset>
+
+  <fieldset class='form-group'>
+    <label for='phone'>Phone</label>
+    <input class='form-control' type='text' id='phone' name='phone'>
+  </fieldset>
+
+  <fieldset class='form-group'>
+    <label for='date'>Date & Time</label>
+    <input class='form-control' type='datetime-local' id='datetime' name='datetime'>
+  </fieldset>
+
+  <fieldset class='form-group'>
+    <label for='fromloc'>From</label>
+    <input class='form-control' type='text' id='fromloc' name='fromloc'>
+  </fieldset>
+
+  <fieldset class='form-group'>
+    <label for='toloc'>To</label>
+    <input class='form-control' type='text' id='toloc' name='toloc'>
+  </fieldset>
+
+  <fieldset class='form-group'>
+    <input class="btn btn-primary" type="submit" value="Create">
+  </fieldset>
+</form>
+
+{% endblock %}
