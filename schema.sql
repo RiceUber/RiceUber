@@ -1,5 +1,5 @@
-drop table if exists entries;
-create table entries (
+DROP TABLE IF EXISTS [entries];
+CREATE TABLE entries (
   id integer primary key autoincrement,
   name text not null,
   email text not null,
