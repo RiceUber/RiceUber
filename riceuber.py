@@ -77,6 +77,17 @@ def login():
     return render_template('login.html', error=error)
 
 
+=====
+
+
+
+
+=====
+
+
+
+
+
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
