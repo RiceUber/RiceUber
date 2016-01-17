@@ -26,9 +26,6 @@ app.config.from_object(__name__)
 def home_page():
     return render_template('homepage.html')
 
-@app.route('/data')
-def data():
-	return render_template('data.html')
 
 
 ####
@@ -78,8 +75,9 @@ def executeScriptsFromFile(filename, a):
 #######
 
 @app.route('/addride/', methods=['GET', 'POST'])
+#<name><email><phone><datetime><fromloc><toloc>
 def add_ride():
-	
+#name=None, email=None, phone=None, datetime=None, fromloc=None, toloc=None	
 	if request.method == "GET":
 		return render_template('addride.html')
 	else:
@@ -90,14 +88,26 @@ def add_ride():
 
 		c.execute('INSERT INTO entries (name, email, phone, datetime, fromloc, toloc) VALUES (?, ?, ?, ?, ?, ?)', (request.form['name'], request.form['email'], request.form['phone'], epoch_time, request.form['fromloc'], request.form['toloc']))
 		g.db.commit()
-		rides = []
-		c.execute("SELECT * FROM entries;")
-		for entry in c.fetchall():
-			rides.append({"data": entry})
 		
 		return render_template('data.html')
-		#events=events, data={"event": env[0]}, add={'add': False}
+		#name=name, email=email, phone=phone, datetime=datetime, fromloc=fromloc, toloc=toloc)
+		#entries=entries, data={"entry": env[0]}, add={'add': False})
 ######
+
+
+
+@app.route('/data')
+def data():
+
+	#cur.execute("SELECT eid,time,location,count_people,count_bikes FROM sessions WHERE eid = %s;", (env[0],))
+
+
+	rides = []
+	c.execute("SELECT * FROM entries;")
+	for entry in c.fetchall():
+		rides.append({"data": entry})
+
+	return render_template('data.html')
 
 
 
