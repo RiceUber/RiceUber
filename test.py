@@ -55,8 +55,27 @@ def teardown_request(exception):
         db.close()
 
 
-#######
+def executeScriptsFromFile(filename, a):
+    # Open and read the file as a single buffer
+    fd = open(filename, 'r')
+    sqlFile = fd.read()
+    fd.close()
 
+    # all SQL commands (split on ';')
+    sqlCommands = sqlFile.split(';')
+
+    # Execute every command from the input file
+    for command in sqlCommands:
+        # This will skip and report errors
+        # For example, if the tables do not yet exist, this will skip over
+        # the DROP TABLE commands
+        #try:
+        a.execute(command)
+        #except OperationalError, msg:
+        #    print "Command skipped: ", msg
+
+
+#######
 
 @app.route('/addride/', methods=['GET', 'POST'])
 def add_ride():
@@ -64,23 +83,21 @@ def add_ride():
 	if request.method == "GET":
 		return render_template('addride.html')
 	else:
-		
+		c = g.db.cursor()
 		epoch_time = time.mktime(datetime.datetime.strptime(request.form['datetime'], "%Y-%m-%dT%H:%M").timetuple())
-		
 
-		g.db.execute('INSERT INTO entries (name, email, phone, datetime, fromloc, toloc) VALUES (?, ?, ?, ?, ?, ?)', (request.form['name'], request.form['email'], request.form['phone'], epoch_time, request.form['fromloc'], request.form['toloc']))
+		executeScriptsFromFile('schema.sql',c)
+
+		c.execute('INSERT INTO entries (name, email, phone, datetime, fromloc, toloc) VALUES (?, ?, ?, ?, ?, ?)', (request.form['name'], request.form['email'], request.form['phone'], epoch_time, request.form['fromloc'], request.form['toloc']))
 		g.db.commit()
-		events = []
-		g.db.execute("SELECT * FROM events;")
-		for event in g.db.fetchall():
-			events.append({"data": event})
+		rides = []
+		c.execute("SELECT * FROM entries;")
+		for entry in c.fetchall():
+			rides.append({"data": entry})
 		
 		return render_template('data.html')
 		#events=events, data={"event": env[0]}, add={'add': False}
 ######
-
-
-
 
 
 
